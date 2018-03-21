@@ -1,5 +1,7 @@
 var shows = ["The Office", "Parks and Rec", "Adventure Time", "Twin Peaks", "Stranger Things"];
-
+var numberShown;
+var queryURL;
+var searchedShow
 //----------------------------  add buttons to page
 
 function makeButtons() {
@@ -22,39 +24,44 @@ $("#addShow").on("click", function(event) {
 });
 
 makeButtons();
+$("#showMore").hide()
 
 //____________________________ request from giphy api
 
-$("#buttonSection").on("click", ".show", function() {
-    $("#gifs-go-here").empty();
-    var searchedShow = $(this).attr("data-name")
-    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + searchedShow + "&api_key=53rTNycyKtaDMuqIM8lZWUhSn4bbBSXi&limit=10"
-
+function showGifs(){
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function(response) {
         // console.log(response)
-        var results = response.data
-
+        var results = response.data  
         for (var i = 0; i < results.length; i++) {
             var gifDiv = $("<div>").addClass("gif-holder")
-            var rating = $("<p>")
-
+            var rating = $("<p>")           
             rating.text(results[i].rating)
-
+            
             var gifImage = $("<img>").addClass("gif")
             gifImage.attr("data-animated", results[i].images.fixed_height.url)
             gifImage.attr("data-still", results[i].images.fixed_height_still.url)
-
+            
             gifImage.attr("src", results[i].images.fixed_height_still.url)
-
+            
             gifDiv.append(rating, gifImage)
-
+            
             $("#gifs-go-here").append(gifImage)
         }
-
+        
     });
+}
+$("#buttonSection").on("click", ".show", function() {
+    $("#gifs-go-here").empty();
+    searchedShow = $(this).attr("data-name")
+    numberShown = 10
+    $("#showMore").show()
+    $("#showMore").attr("data-name", searchedShow)
+    queryURL = "http://api.giphy.com/v1/gifs/search?q=" + searchedShow + "&api_key=53rTNycyKtaDMuqIM8lZWUhSn4bbBSXi&limit=" + numberShown
+    
+    showGifs()
 });
 
 
@@ -71,3 +78,15 @@ if (currentURL === stillURL){
 }
 
 });
+
+$("#showMore").on("click", function(){
+
+    numberShown += 10;
+
+    $("#gifs-go-here").empty();
+    searchedShow = $(this).attr("data-name")
+    queryURL = "http://api.giphy.com/v1/gifs/search?q=" + searchedShow + "&api_key=53rTNycyKtaDMuqIM8lZWUhSn4bbBSXi&limit=" + numberShown
+    
+    showGifs()
+
+})
