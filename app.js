@@ -3,6 +3,8 @@ var numberShown;
 var queryURL;
 var searchedShow;
 var startingIndex;
+var results;
+var favorites = [];
 //----------------------------  add buttons to page
 
 function makeButtons() {
@@ -25,6 +27,7 @@ $("#addShow").on("click", function(event) {
 });
 
 makeButtons();
+displayFavorites();
 $("#showMore").hide()
 $("#showPrevious").hide()
 
@@ -36,11 +39,18 @@ function showGifs(startingi){
         method: "GET"
     }).then(function(response) {
         console.log(response)
-        var results = response.data  
+        results = response.data  
         for (var i = startingi; i < results.length; i++) {
             var gifDiv = $("<div>").addClass("gif-holder")
+
             var rating = $("<p>")           
-            rating.text(results[i].rating)
+            rating.text('Rating: ' + results[i].rating)
+
+            var url = $("<a>View on giphy</a>")
+            url.attr("href", results[i].images.original.url)
+
+            var addtoFavorites = $("<button>Add to favorites</button>")
+            addtoFavorites.attr("data-thumb", results[i].images.fixed_width_small_still.url)
             
             var gifImage = $("<img>").addClass("gif")
             gifImage.attr("data-animated", results[i].images.fixed_height.url)
@@ -48,9 +58,9 @@ function showGifs(startingi){
             
             gifImage.attr("src", results[i].images.fixed_height_still.url)
             
-            gifDiv.append(rating, gifImage)
+            gifDiv.append(gifImage, url, addtoFavorites)
             
-            $("#gifs-go-here").append(gifImage)
+            $("#gifs-go-here").append(gifDiv)
         }
         
     });
@@ -109,5 +119,44 @@ $("#showPrevious").on("click", function(){
     queryURL = "http://api.giphy.com/v1/gifs/search?q=" + searchedShow + "&api_key=53rTNycyKtaDMuqIM8lZWUhSn4bbBSXi&limit=" + numberShown
     
     showGifs(startingIndex)
+
+})
+
+$("#gifs-go-here").on('click', 'button', function(){
+    var thumbURL = $(this).attr("data-thumb")
+
+    favorites.push(thumbURL)
+    // console.log(favorites)
+    
+    localStorage.setItem('favorites', JSON.stringify(favorites))
+    // console.log(localStorage.favorites)
+    $(".favorites").empty()
+    displayFavorites()
+    
+})
+
+
+function displayFavorites(){
+    var stringFavorites = localStorage.getItem("favorites");
+    favorites = JSON.parse(stringFavorites);
+    
+    console.log(favorites)
+    if(!Array.isArray(favorites)){
+        console.log("goo");
+        favorites = [];
+    }else {
+        for (let i = 0; i < favorites.length; i++){
+            var thumb = $(`<a href='${favorites[i]}'><img src='${favorites[i]}'></a>`)
+            $(".favorites").append(thumb)
+
+        }}
+
+
+}
+
+$(".clear-favs").on("click", function(){
+    localStorage.clear()
+    favorites = [];
+    $(".favorites").empty()
 
 })

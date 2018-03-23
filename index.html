@@ -12,11 +12,16 @@
 <body>
     <br>
     <div class="container">
+        <header>
+            <h1>Gif Searcher</h1>
+            <p>Click any button to see gifs and add your own buttons! Click on images to play gifs (may take a while to load).</p>
+        </header>
+        <br>
         <div class="row">
-            <div class="col-sm-9">
+            <div class="col-sm-10">
                 <div id="buttonSection"></div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2 add-form">
                 <form id="shows-form">
                     <!-- <label for="show-input">Add a new show</label> -->
                     <input type="text" id="show-input">
@@ -27,12 +32,19 @@
         </div>
         <br>
         <div class="row"> 
-            <div class="col-md-12">
+            <div class="col-md-10">
                 <div id="gifs-go-here">
                 </div>
                 <br>
                 <button id="showMore">Show more gifs</button>
                 <button id="showPrevious">Show previous gifs</button>
+            </div>
+            <div class="col-md-2 favorites-holder">
+                <h3>Favorites</h3>
+                <div class="favorites">
+                </div>
+                <br>
+                <button class="clear-favs">Clear favorites</button>
             </div>
         </div>
     </div>
