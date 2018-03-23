@@ -46,7 +46,7 @@ function showGifs(startingi){
             var rating = $("<p>")           
             rating.text('Rating: ' + results[i].rating)
 
-            var url = $("<a>View on giphy</a>")
+            var url = $("<a>Giphy</a>")
             url.attr("href", results[i].images.original.url)
 
             var addtoFavorites = $("<button>Add to favorites</button>")

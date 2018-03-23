@@ -1,5 +1,44 @@
+.top{
+    padding: 0;
+}
+
+h1{
+    font-family: 'Anton', sans-serif;
+    font-size: 72px;
+    color: #e9b000;
+}
+h3{
+    font-family: 'Anton', sans-serif;
+    color: #e9b000;
+}
+hr{
+
+    border-top: 2px solid #e9b000;
+}
+
+a{
+    color: #e9b000;
+}
+
+#show-input {
+    width: 100%;
+}
+
+input {
+    border-color: #e9b000;
+    border-style: solid;
+}
+
+button, #addShow {
+    background-color: #e24e42;
+    color: white;
+    /* padding: 1px; */
+    border: 0;
+}
+
+
 img {
-    /* width: 30%; */
+    width: 100%;
     margin: 3px;
     display: block;
 }
@@ -30,17 +69,16 @@ button {
 }
 
 .favorites-holder {
-    padding-left: 0px;
-    padding-right: 0;
+    /* padding-left: 0px;
+    padding-right: 0; */
     padding-top: 15px;
     padding-bottom: 10px;
     text-align: center;
-    background-color: rgb(223, 224, 224);
+    background-color: rgb(246, 248, 248);
 }
 
 .favorites{
-    padding-top: 10px;
-    padding-bottom: 10px;
+    margin: auto;
 }
 
 .favorites img {
@@ -53,6 +91,6 @@ button {
     margin-bottom: 5px;
     margin-top: 5px;
 }
-.add-form {
-    padding: 0;
+.add-form{
+    padding-left: 0;
 }
