@@ -73,7 +73,6 @@ $("#buttonSection").on("click", ".show", function() {
     startingIndex = 0;
     numberShown = 20
     $("#showMore").show()
-    $("#showPrevious").show()
     $("#showMore").attr("data-name", searchedShow)
     $("#showPrevious").attr("data-name", searchedShow)
     queryURL = "http://api.giphy.com/v1/gifs/search?q=" + searchedShow + "&api_key=53rTNycyKtaDMuqIM8lZWUhSn4bbBSXi&limit=" + numberShown
@@ -97,9 +96,10 @@ if (currentURL === stillURL){
 
 
 $("#showMore").on("click", function(){
+    $("#showPrevious").show()
 
-    numberShown += 20;
-    startingIndex += 20;
+    numberShown += 15;
+    startingIndex += 15;
 
     $("#gifs-go-here").empty();
     searchedShow = $(this).attr("data-name")
@@ -111,8 +111,8 @@ $("#showMore").on("click", function(){
 
 $("#showPrevious").on("click", function(){
 
-    numberShown -= 20;
-    startingIndex -= 20;
+    numberShown -= 15;
+    startingIndex -= 15;
 
     $("#gifs-go-here").empty();
     searchedShow = $(this).attr("data-name")
@@ -160,3 +160,10 @@ $(".clear-favs").on("click", function(){
     $(".favorites").empty()
 
 })
+
+$("body").on('mouseenter', ('button, input'),function() {
+    $(this).animate({opacity: .5}, 0);
+});
+$("body").on('mouseleave', ('button, input'),function() {
+    $(this).animate({opacity: 1.0}, 0);
+});
