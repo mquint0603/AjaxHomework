@@ -32,6 +32,7 @@ $("#showMore").hide()
 $("#showPrevious").hide()
 
 
+// -------------------------- put gifs and their info onto dom
 
 function showGifs(startingi){
     $.ajax({
@@ -45,13 +46,15 @@ function showGifs(startingi){
 
             // var rating = $("<p>")           
             // rating.text('Rating: ' + results[i].rating)
+            // decided to not use the rating because I don't think people using this app will care about that 
 
+            //link to giphy:
             var url = $("<a>Giphy</a>")
             url.attr("href", results[i].images.original.url)
-
+            //favorites button:
             var addtoFavorites = $("<button>Add to favorites</button>")
             addtoFavorites.attr("data-thumb", results[i].images.fixed_width_small_still.url)
-            
+            // gif image:
             var gifImage = $("<img>").addClass("gif")
             gifImage.attr("data-animated", results[i].images.fixed_height.url)
             gifImage.attr("data-still", results[i].images.fixed_height_still.url)
@@ -60,17 +63,15 @@ function showGifs(startingi){
             gifDiv.append(gifImage, url, addtoFavorites)
             
             $("#gifs-go-here").append(gifDiv)
-        }
-        
+        }     
     });
 }
-
 
 $("#buttonSection").on("click", ".show", function() {
     $("#gifs-go-here").empty();
     searchedShow = $(this).attr("data-name")
     startingIndex = 0;
-    numberShown = 20
+    numberShown = 15
     $("#showMore").show()
     $("#showMore").attr("data-name", searchedShow)
     $("#showPrevious").attr("data-name", searchedShow)
@@ -78,7 +79,7 @@ $("#buttonSection").on("click", ".show", function() {
     showGifs(0)
 });
 
-//------------------------- toggle animation
+//--------------------------------- toggle animation
 
 $("#gifs-go-here").on('click', '.gif', function(){
 var animatedURL = $(this).attr("data-animated")
@@ -93,6 +94,7 @@ if (currentURL === stillURL){
 });
 
 
+// --------------------------------- next/previous set of gifs
 
 $("#showMore").on("click", function(){
     $("#showPrevious").show()
@@ -105,7 +107,6 @@ $("#showMore").on("click", function(){
     queryURL = "http://api.giphy.com/v1/gifs/search?q=" + searchedShow + "&api_key=53rTNycyKtaDMuqIM8lZWUhSn4bbBSXi&limit=" + numberShown
     
     showGifs(startingIndex)
-
 })
 
 $("#showPrevious").on("click", function(){
@@ -118,17 +119,17 @@ $("#showPrevious").on("click", function(){
     queryURL = "http://api.giphy.com/v1/gifs/search?q=" + searchedShow + "&api_key=53rTNycyKtaDMuqIM8lZWUhSn4bbBSXi&limit=" + numberShown
     
     showGifs(startingIndex)
-
 })
+
+//------------------------------------- favorites functionality
 
 $("#gifs-go-here").on('click', 'button', function(){
     var thumbURL = $(this).attr("data-thumb")
 
     favorites.push(thumbURL)
-    // console.log(favorites)
     
     localStorage.setItem('favorites', JSON.stringify(favorites))
-    // console.log(localStorage.favorites)
+    
     $(".favorites").empty()
     displayFavorites()
     
@@ -138,19 +139,16 @@ $("#gifs-go-here").on('click', 'button', function(){
 function displayFavorites(){
     var stringFavorites = localStorage.getItem("favorites");
     favorites = JSON.parse(stringFavorites);
-    
     console.log(favorites)
+
     if(!Array.isArray(favorites)){
         console.log("goo");
         favorites = [];
-    }else {
+    } else {
         for (let i = 0; i < favorites.length; i++){
             var thumb = $(`<a href='${favorites[i]}'><img src='${favorites[i]}'></a>`)
             $(".favorites").append(thumb)
-
         }}
-
-
 }
 
 $(".clear-favs").on("click", function(){
@@ -159,6 +157,8 @@ $(".clear-favs").on("click", function(){
     $(".favorites").empty()
 
 })
+
+//----------------------------- button animation
 
 $("body").on('mouseenter', ('button, input'),function() {
     $(this).animate({opacity: .5}, 0);
