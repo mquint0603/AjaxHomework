@@ -43,8 +43,8 @@ function showGifs(startingi){
         for (var i = startingi; i < results.length; i++) {
             var gifDiv = $("<div>").addClass("gif-holder")
 
-            var rating = $("<p>")           
-            rating.text('Rating: ' + results[i].rating)
+            // var rating = $("<p>")           
+            // rating.text('Rating: ' + results[i].rating)
 
             var url = $("<a>Giphy</a>")
             url.attr("href", results[i].images.original.url)
@@ -55,7 +55,6 @@ function showGifs(startingi){
             var gifImage = $("<img>").addClass("gif")
             gifImage.attr("data-animated", results[i].images.fixed_height.url)
             gifImage.attr("data-still", results[i].images.fixed_height_still.url)
-            
             gifImage.attr("src", results[i].images.fixed_height_still.url)
             
             gifDiv.append(gifImage, url, addtoFavorites)
