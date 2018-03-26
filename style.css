@@ -18,6 +18,7 @@ hr{
 
 a{
     color: #e9b000;
+    /* margin-right: 3px; */
 }
 
 #show-input {
@@ -37,7 +38,7 @@ button, #addShow {
 }
 
 
-img {
+.gif-holder img {
     width: 100%;
     margin: 3px;
     display: block;
@@ -69,8 +70,8 @@ button {
 }
 
 .favorites-holder {
-    /* padding-left: 0px;
-    padding-right: 0; */
+    padding-left: 0px;
+    padding-right: 0;
     padding-top: 15px;
     padding-bottom: 10px;
     text-align: center;
@@ -85,12 +86,14 @@ button {
     margin: auto;
     margin-bottom: 5px;
     margin-top: 5px;
+    display: inline-block;
 }
 .favorites a {
     margin: auto;
     margin-bottom: 5px;
     margin-top: 5px;
+    padding: 3px;
 }
-.add-form{
+/* .add-form{
     padding-left: 0;
-}
+} */
